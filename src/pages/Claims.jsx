@@ -62,7 +62,7 @@ function Claims() {
                 value={claimDescription}
                 onChange={(e) => setClaimDescription(e.target.value)}
               />
-              <button onClick={addClaim}>Make A Claim</button>
+              <button onClick={addClaim} style={{cursor: 'pointer'}}>Make A Claim</button>
             </div>
           </form>
         </section>
