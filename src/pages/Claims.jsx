@@ -1,32 +1,33 @@
 import React, { useState , useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getclaims, addclaim } from '../features/claims/claimSlice';
-import { reset } from '../features/auth/authSlice'
-import { toast } from 'react-toastify';
+// import { getclaims, addclaim } from '../features/claims/claimSlice';
+// import { reset } from '../features/auth/authSlice'
+// import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
-import { Link, useNavigate } from 'react-router-dom'
+// import { Link, useNavigate } from 'react-router-dom'
 
 function Claims() {
   const { user } = useSelector((state) => state.auth);
-  const { claims, isLoading, isError, isSuccess, message} = useSelector((state) => state.claims);
+  // const { claims, isLoading, isError, isSuccess, message} = useSelector((state) => state.claims);
+  let claims = JSON.parse(localStorage.getItem('claims')) || [];
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   if (isError) {
+  //     console.log(message);
+  //   }
+
+  //   if (!user) {
+  //     navigate('/');
+  //     return;
+  //   }
+  //   dispatch(getclaims());
+
+  //   return () => {
+  //     dispatch(reset());
+  //   };
+  // }, [user, navigate, isError, message, dispatch]);
   
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (isError) {
-      console.log(message);
-    }
-
-    // if (!user) {
-    //   navigate('/');
-    //   return;
-    // }
-    dispatch(getclaims());
-
-    return () => {
-      dispatch(reset());
-    };
-  }, [user, navigate, isError, message, dispatch]);
   const [claimDescription, setClaimDescription] = useState('');
 
   const addClaim = (e) => {
@@ -38,15 +39,15 @@ function Claims() {
       farmer: "Festo",
       status: "pending"
     };
-
-    dispatch(addclaim(newClaim));
+    localStorage.setItem('claims', JSON.stringify([...claims, newClaim]));
+    // dispatch(addclaim(newClaim));
     setClaimDescription('');
     alert('claim added successful ...');
   };
  
-  if (isLoading) {
-    return <Spinner />;
-  }
+  // if (isLoading) {
+  //   return <Spinner />;
+  // }
   return (
     <>
       <div className="health">

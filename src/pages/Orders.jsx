@@ -1,6 +1,6 @@
 import React, { useState , useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getorders, addorder } from '../features/orders/orderSlice';
+// import { getorders, addorder } from '../features/orders/orderSlice';
 import { reset } from '../features/auth/authSlice'
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
@@ -9,25 +9,27 @@ import { Link, useNavigate } from 'react-router-dom';
 
 function Orders() {
   const { user } = useSelector((state) => state.auth);
-  const { orders, isLoading, isError, isSuccess, message} = useSelector((state) => state.orders);
+  // const { orders, isLoading, isError, isSuccess, message} = useSelector((state) => state.orders);
+  // const [orders,  setOrders] = useState([]);
+  let orders = JSON.parse(localStorage.getItem('orders')) || [];
   
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (isError) {
-      console.log(message);
-    }
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   if (isError) {
+  //     console.log(message);
+  //   }
 
-    // if (!user) {
-    //   navigate('/');
-    //   return;
-    // }
-    dispatch(getorders());
+  //   if (!user) {
+  //     navigate('/');
+  //     return;
+  //   }
+  //   dispatch(getorders());
 
-    return () => {
-      dispatch(reset());
-    };
-  }, [user, navigate, isError, message, dispatch]);
+  //   return () => {
+  //     dispatch(reset());
+  //   };
+  // }, [user, navigate, isError, message, dispatch]);
 
   const [productName, setProductName] = useState('');
   const [dueDate, setDueDate] = useState('');
@@ -43,7 +45,9 @@ function Orders() {
       order_status: 'Pending',
       amount: parseFloat(amount),
     };
-    dispatch(addorder(newOrder));
+
+    localStorage.setItem('orders', JSON.stringify([...orders, newOrder]));
+    // dispatch(addorder(newOrder));
     alert('Order successful ...');
     setProductName('');
     setDueDate('');
@@ -51,9 +55,9 @@ function Orders() {
     setAmount('');
   };
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+  // if (isLoading) {
+  //   return <Spinner />;
+  // }
   return (
     <>
       <div className="health">
@@ -89,7 +93,7 @@ function Orders() {
               onChange={(e) => setAmount(e.target.value)}
             />
           </div>
-          <button onClick={addOrder}>Make Order</button>
+          <button onClick={addOrder} style={{cursor: 'pointer'}}>Make Order</button>
         </form>
       </section>
      <h2>Made Orders</h2>
@@ -105,7 +109,7 @@ function Orders() {
                 <th></th>
               </tr>
             </thead>
-            {orders.length > 0 ? (
+          {orders.length > 0 ? (
              <tbody>
             {orders.map((order) => (
               <tr key={order._id}>

@@ -14,20 +14,18 @@ export const getorders = createAsyncThunk(
   'orders/getAll',
   async (_, thunkAPI) => {
     try {
-     
-      return await orderService.getorders()
+      return await orderService.getorders();
     } catch (error) {
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
-        error.toString()
-      return thunkAPI.rejectWithValue(message)
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
     }
   }
-)
-
+);
 
 export const addorder = createAsyncThunk(
   'orders/create',
