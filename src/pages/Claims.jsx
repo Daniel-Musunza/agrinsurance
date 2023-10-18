@@ -2,7 +2,7 @@ import React, { useState , useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { getclaims, addclaim } from '../features/claims/claimSlice';
 // import { reset } from '../features/auth/authSlice'
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
 // import { Link, useNavigate } from 'react-router-dom'
 
@@ -48,6 +48,7 @@ function Claims() {
   // if (isLoading) {
   //   return <Spinner />;
   // }
+
   return (
     <>
       <div className="health">
