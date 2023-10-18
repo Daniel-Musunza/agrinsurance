@@ -7,7 +7,7 @@ import Spinner from '../components/Spinner';
 // import { Link, useNavigate } from 'react-router-dom'
 
 function Claims() {
-  const { user } = useSelector((state) => state.auth);
+  // const { user } = useSelector((state) => state.auth);
   // const { claims, isLoading, isError, isSuccess, message} = useSelector((state) => state.claims);
   let claims = JSON.parse(localStorage.getItem('claims')) || [];
   // const navigate = useNavigate();
