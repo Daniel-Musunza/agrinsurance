@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { logout, reset } from '../features/auth/authSlice';
 
 function Header() {
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLoginOpen, setLoginOpen] = useState(false);
   // const { user } = useSelector((state) => state.auth);
@@ -44,6 +45,13 @@ function Header() {
 
     // For demonstration purposes, log user data to the console
     alert('Success! logged in:');
+  };
+
+  const Logout = (e) => {
+    e.preventDefault();
+
+    localStorage.removeItem('user');
+    navigate('/');
   };
 
   const Register = (e) => {
@@ -100,9 +108,7 @@ function Header() {
 
                 {user ? (
                   <li className='logout'>
-                    <Link to="https://identity.ic0.app/#authorize">
-                      <button style={{ cursor: 'pointer', color: '#ffff' }} >Log Out</button>
-                    </Link>
+                      <button style={{ cursor: 'pointer', color: '#ffff' }} onClick={Logout} >Log Out</button>
                   </li>
                 ) : (
                   <li className='logout'>
@@ -144,9 +150,7 @@ function Header() {
 
                   {user ? (
                     <li className='logout'>
-                      <Link to="https://identity.ic0.app/#authorize">
-                        <button style={{ cursor: 'pointer', color: '#ffff' }} >Log Out</button>
-                      </Link>
+                        <button style={{ cursor: 'pointer', color: '#ffff' }} onClick={Logout} >Log Out</button>
                     </li>
                   ) : (
                     <li className='logout'>
