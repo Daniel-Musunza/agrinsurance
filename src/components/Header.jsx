@@ -86,9 +86,11 @@ function Header() {
                   </li>
                 )}
 
-                <li>
-                  <Link to='/orders'>Orders</Link>
-                </li>
+                {user && (
+                  <li>
+                    <Link to='/orders'>Orders</Link>
+                  </li>
+                )}
 
               </ul>
             </div>
@@ -128,9 +130,11 @@ function Header() {
                       <Link to='/claims'>Claims</Link>
                     </li>
                   )}
-                  <li>
-                    <Link to='/orders'>Orders</Link>
-                  </li>
+                  {user && (
+                    <li>
+                      <Link to='/orders'>Orders</Link>
+                    </li>
+                  )}
 
                 </ul>
               </div>
