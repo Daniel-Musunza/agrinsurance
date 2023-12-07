@@ -45,6 +45,7 @@ function Header() {
 
     // For demonstration purposes, log user data to the console
     alert('Success! logged in:');
+    setLoginOpen(false);
   };
 
   const Logout = (e) => {
@@ -71,6 +72,7 @@ function Header() {
 
     // For demonstration purposes, log user data to the console
     alert('registered Successfully');
+    setLoginOpen(false);
   };
   return (
     <>
