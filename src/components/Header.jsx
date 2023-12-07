@@ -205,6 +205,12 @@ function Header() {
                           <option value="farmer">Farmer</option>
                           <option value="admin">Admin</option>
                         </select>
+                        <input
+                          type="email"
+                          className="form-control"
+                          placeholder="Your Email"
+                          onChange={(e) => setSelectedEmail(e.target.value)}
+                        />
                         <button className="form-control" style={{ border: '1px #fff', cursor: 'pointer' }} onClick={(e) => Login(e)}>Login</button>
                       </>
                     )}
