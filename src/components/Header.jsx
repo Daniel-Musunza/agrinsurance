@@ -203,6 +203,7 @@ function Header() {
                         <select id="loginRole" className="form-control">
                           <option value="consumer">Consumer</option>
                           <option value="farmer">Farmer</option>
+                          <option value="admin">Admin</option>
                         </select>
                         <button className="form-control" style={{ border: '1px #fff', cursor: 'pointer' }} onClick={(e) => Login(e)}>Login</button>
                       </>
@@ -213,7 +214,7 @@ function Header() {
                         <select id="registerRole" className="form-control">
                           <option value="consumer">Consumer</option>
                           <option value="farmer">Farmer</option>
-                          <option value="admin">Admin</option>
+                         
                         </select>
                         <input
                           type="text"
