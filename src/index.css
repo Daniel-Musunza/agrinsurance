@@ -1,6 +1,23 @@
 body {
   margin-top: 0;
 }
+.login-menu{
+  position: fixed;
+  right: 10px;
+  top: 80px;
+  z-index: 999;
+  background-color: #48ec5e;
+  color: black;
+  border-radius: 5px;
+  
+}
+
+.login-menu form {
+  width: 200px;
+}
+.radio{
+  padding-left: 30px;
+}
 .header {
   background-color: #ffffff;
   color: black;

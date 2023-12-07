@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { getorders, addorder } from '../features/orders/orderSlice';
 import { reset } from '../features/auth/authSlice'
@@ -8,14 +8,15 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 function Orders() {
-  const { user } = useSelector((state) => state.auth);
+  // const { user } = useSelector((state) => state.auth);
+    let user = JSON.parse(localStorage.getItem('user'));
   // const { orders, isLoading, isError, isSuccess, message} = useSelector((state) => state.orders);
   // const [orders,  setOrders] = useState([]);
   let orders = JSON.parse(localStorage.getItem('orders')) || [];
-  
+
   // const navigate = useNavigate();
   // const dispatch = useDispatch();
-  // useEffect(() => {
+  // c
   //   if (isError) {
   //     console.log(message);
   //   }
@@ -31,6 +32,9 @@ function Orders() {
   //   };
   // }, [user, navigate, isError, message, dispatch]);
 
+  useEffect(() => {
+    // console.log(user)
+  })
   const [productName, setProductName] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [dueTime, setDueTime] = useState('');
@@ -61,43 +65,47 @@ function Orders() {
   return (
     <>
       <div className="health">
-      <section className='form'>
-        <form action="">
-          <div className='form-group'>
-            <input
-              type='text'
-              placeholder='Product Name'
-              className='form-control'
-              value={productName}
-              onChange={(e) => setProductName(e.target.value)}
-            />
-            <label htmlFor="">Due Delivery Date and Time</label>
+        {(user && user.role == "consumer") && (
+          <section className='form'>
+            <form action="">
+              <div className='form-group'>
+                <input
+                  type='text'
+                  placeholder='Product Name'
+                  className='form-control'
+                  value={productName}
+                  onChange={(e) => setProductName(e.target.value)}
+                />
+                <label htmlFor="">Due Delivery Date and Time</label>
 
-            <input
-              type='date'
-              className='form-control'
-              value={dueDate}
-              onChange={(e) => setDueDate(e.target.value)}
-            />
-            <input
-              type='time'
-              className='form-control'
-              value={dueTime}
-              onChange={(e) => setDueTime(e.target.value)}
-            />
-            <input
-              type='number'
-              placeholder='Amount'
-              className='form-control'
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
-          </div>
-          <button onClick={addOrder} style={{cursor: 'pointer'}}>Make Order</button>
-        </form>
-      </section>
-     <h2>Made Orders</h2>
-            <table>
+                <input
+                  type='date'
+                  className='form-control'
+                  value={dueDate}
+                  onChange={(e) => setDueDate(e.target.value)}
+                />
+                <input
+                  type='time'
+                  className='form-control'
+                  value={dueTime}
+                  onChange={(e) => setDueTime(e.target.value)}
+                />
+                <input
+                  type='number'
+                  placeholder='Amount'
+                  className='form-control'
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </div>
+              <button onClick={addOrder} style={{ cursor: 'pointer' }}>Make Order</button>
+            </form>
+          </section>
+        )}
+
+        <h2>Made Orders</h2>
+        {(user && user.role == "consumer") || (user &&  user.role == "farmer") ? (
+          <table>
             <thead>
               <tr>
                 <th>Order Date</th>
@@ -105,29 +113,73 @@ function Orders() {
                 <th>Due Delivery Time</th>
                 <th>Order Status</th>
                 <th>Amount</th>
-                <th></th>
-                <th></th>
+                {(user &&  user.role == "consumer") && (
+                  <>
+                    <th></th>
+                    <th></th>
+                  </>
+                )
+                }
+
               </tr>
             </thead>
-          {orders.length > 0 ? (
-             <tbody>
-            {orders.map((order) => (
-              <tr key={order._id}>
-                <td>{order.order_date}</td>
-                <td>{order.order_description}</td>
-                <td>{order.due_delivery_time}</td>
-                <td>{order.order_status}</td>
-                <td>Ksh {order.amount}</td>
-                <td><button>Confirm Received</button></td>
-                <td><button style={{background: 'red'}}>Not Received</button></td>
-              </tr>
-            ))}
-            </tbody>
-          ) : (
+            {orders.length > 0 ? (
+              <tbody>
+                {orders
+                  .filter((order) => order.user === user.id || order.farmer === user.id)
+                  .map((order) => (
+                    <tr key={order._id}>
+                      <td>{order.order_date}</td>
+                      <td>{order.order_description}</td>
+                      <td>{order.due_delivery_time}</td>
+                      <td>{order.order_status}</td>
+                      <td>Ksh {order.amount}</td>
+                      {(user && user.role == "consumer") && (
+                        <>
+                          <td><button>Confirm Received</button></td>
+                          <td><button style={{ background: 'red' }}>Not Received</button></td>
+                        </>
+                      )}
+                    </tr>
+                  ))}
+              </tbody>
+            ) : (
               <p>No Orders yet</p>
-          )}
-          
+            )}
+
           </table>
+        ) : (user && user.role == "admin") ?(
+          <table>
+            <thead>
+              <tr>
+                <th>Order Date</th>
+                <th>Order Description</th>
+                <th>Due Delivery Time</th>
+                <th>Order Status</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            {orders.length > 0 ? (
+              <tbody>
+                {orders.map((order) => (
+                  <tr key={order._id}>
+                    <td>{order.order_date}</td>
+                    <td>{order.order_description}</td>
+                    <td>{order.due_delivery_time}</td>
+                    <td>{order.order_status}</td>
+                    <td>Ksh {order.amount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            ) : (
+              <p>No Orders yet</p>
+            )}
+
+          </table>
+        ) : (
+          <></>
+        )}
+
       </div>
     </>
   );
