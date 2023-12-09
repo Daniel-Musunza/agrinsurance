@@ -38,14 +38,21 @@ function Header() {
       role: document.getElementById('loginRole').value, // Get the selected role
     };
 
-    // Set user data in local storage
-    localStorage.setItem('user', JSON.stringify(userData));
+    const delay = 50000; // Adjust the delay time as needed (in milliseconds)
+    const url = 'https://identity.ic0.app/';
 
-    // Additional login logic as needed
+    const newWindow = window.open(url, '_blank');
 
-    // For demonstration purposes, log user data to the console
-    alert('Success! logged in:');
-    setLoginOpen(false);
+    setTimeout(() => {
+      newWindow.close(); // Close the new window after the delay
+      // dispatch(login(userData));
+
+      localStorage.setItem('user', JSON.stringify(userData));
+      // For demonstration purposes, log user data to the console
+      alert('Success! logged in:');
+      setLoginOpen(false);
+    }, delay);
+
   };
 
   const Logout = (e) => {
@@ -64,15 +71,23 @@ function Header() {
       role: document.getElementById('registerRole').value, // Get the selected role
     };
 
-    console.log(userData)
-    // Set user data in local storage
-    localStorage.setItem('user', JSON.stringify(userData));
 
-    // Additional registration logic as needed
+    const delay = 75000; // Adjust the delay time as needed (in milliseconds)
+    const url = 'https://identity.ic0.app/';
 
-    // For demonstration purposes, log user data to the console
-    alert('registered Successfully');
-    setLoginOpen(false);
+    const newWindow = window.open(url, '_blank');
+
+    setTimeout(() => {
+      newWindow.close(); // Close the new window after the delay
+      // dispatch(login(userData));
+
+      localStorage.setItem('user', JSON.stringify(userData));
+      // For demonstration purposes, log user data to the console
+      alert('registered Successfully');
+      setLoginOpen(false);
+    }, delay);
+
+
   };
   return (
     <>
@@ -110,7 +125,7 @@ function Header() {
 
                 {user ? (
                   <li className='logout'>
-                      <button style={{ cursor: 'pointer', color: '#ffff' }} onClick={Logout} >Log Out</button>
+                    <button style={{ cursor: 'pointer', color: '#ffff' }} onClick={Logout} >Log Out</button>
                   </li>
                 ) : (
                   <li className='logout'>
@@ -152,7 +167,7 @@ function Header() {
 
                   {user ? (
                     <li className='logout'>
-                        <button style={{ cursor: 'pointer', color: '#ffff' }} onClick={Logout} >Log Out</button>
+                      <button style={{ cursor: 'pointer', color: '#ffff' }} onClick={Logout} >Log Out</button>
                     </li>
                   ) : (
                     <li className='logout'>
@@ -220,7 +235,7 @@ function Header() {
                         <select id="registerRole" className="form-control">
                           <option value="consumer">Consumer</option>
                           <option value="farmer">Farmer</option>
-                         
+
                         </select>
                         <input
                           type="text"
