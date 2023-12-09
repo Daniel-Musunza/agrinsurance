@@ -37,7 +37,7 @@ function Claims() {
     const newClaim = {
       claim_date: new Date().toLocaleDateString(),
       claim_description: claimDescription,
-      farmer: "Festo",
+      farmer: user.name,
       status: "pending"
     };
     localStorage.setItem('claims', JSON.stringify([...claims, newClaim]));
