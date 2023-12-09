@@ -33,7 +33,7 @@ function Claims() {
 
   const addClaim = (e) => {
     e.preventDefault();
-
+    const user = JSON.parse(localStorage.getItem('user'));
     const newClaim = {
       claim_date: new Date().toLocaleDateString(),
       claim_description: claimDescription,
